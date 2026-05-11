@@ -1,0 +1,9 @@
+[
+  { "id": 1, "materia": "Algoritmos e Programação", "ementa": "Lógica de programação, variáveis, estruturas de controle e repetição." },
+  { "id": 2, "materia": "Estrutura de Dados", "ementa": "Listas, pilhas, filas, árvores e ordenação de algoritmos." },
+  { "id": 3, "materia": "Engenharia de Software", "ementa": "Ciclo de vida de software, metodologias ágeis e diagramas UML." },
+  { "id": 4, "materia": "Banco de Dados", "ementa": "Modelagem relacional, SQL, normalização e transações." },
+  { "id": 5, "materia": "Programação Web I", "ementa": "HTML5, CSS3, JavaScript e introdução a frameworks modernos." },
+  { "id": 6, "materia": "Sistemas Operacionais", "ementa": "Gerenciamento de processos, memória e sistemas de arquivos." },
+  { "id": 7, "materia": "Redes de Computadores", "ementa": "Modelo OSI, TCP/IP, protocolos de comunicação e segurança." }
+]

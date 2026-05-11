@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## DB Firebase
+Não esquecer de liberar o DB durante a programa e após fazer o Deploy voltar a trancar.
+
+## 🛠️ Configuração do Firebase
+Este projeto utiliza o Firebase. Por motivos de segurança, as chaves de API não estão inclusas no repositório.
+
+Passo 1: Criar o arquivo de configuração
+Crie um arquivo em src/lib/firebase.ts e cole a estrutura abaixo, substituindo pelos dados do seu projeto no Console do Firebase:
+
+// src/lib/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+// Adicione outros serviços que usar (auth, storage, etc)
+
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  projectId: "SEU_PROJETO",
+  storageBucket: "SEU_PROJETO.appspot.com",
+  messagingSenderId: "SEU_ID",
+  appId: "SEU_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+
