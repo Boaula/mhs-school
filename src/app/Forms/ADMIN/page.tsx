@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { db, auth, googleProvider } from '@/lib/firebase';
 import { signInWithPopup, signOut, User } from 'firebase/auth';
@@ -11,7 +12,6 @@ export default function AdminPage() {
   const [itemNome, setItemNome] = useState('');
   const [listaItens, setListaItens] = useState<string[]>([]);
   const [status, setStatus] = useState('');
-
   const ADM_EMAIL = "natanael.rodrigues@edu.mt.gov.br";
 
   const handleLogin = async () => {
@@ -105,6 +105,12 @@ const gerarPDF = async () => {
         <h2 className="text-xl font-bold text-green-700 mb-6 text-center uppercase tracking-wide">
           Cadastro de Itens (ADM)
         </h2>
+
+        <Link href="Forms/ADMIN/Itens" className="bg-white p-8 rounded-xl shadow-md border-t-4 border-blue-500 hover:shadow-lg transition flex flex-col items-center">
+          <span className="text-4xl mb-4">📋</span> 
+          <h2 className="text-xl font-bold text-gray-700">Gerenciar Itens</h2>
+          <p className="text-gray-500 text-center mt-2">Edite ou remova os itens da lista.</p>
+        </Link>
         
         <div className="space-y-4">
           <div>
