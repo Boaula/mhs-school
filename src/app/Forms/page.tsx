@@ -6,6 +6,7 @@ import { signInWithPopup, signOut, User } from 'firebase/auth';
 import { collection, addDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { RespostaFormulario } from '@/lib/GerenciadorRespostas';
+import { BannerTermos } from '@/components/BannerTermos';
 
 export default function ProfessorPage() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function ProfessorPage() {
   const [respostas, setRespostas] = useState<Record<string, any>>({}); // Armazenará { "ID_DO_ITEM": { segue: true, justificativa: "" } }
   const [itens, setItens] = useState<any[]>([]); 
   const [docId, setDocId] = useState<string | null>(null); // Guarda o ID da resposta anterior
+  const [podeInteragir, setPodeInteragir] = useState(false); // Bloqueia o fundo
 
 // Instanciamos o objeto da nossa Classe
   const gerenciador = new RespostaFormulario(itens, respostas);
@@ -112,6 +114,13 @@ export default function ProfessorPage() {
 
   // TELA DO FORMULÁRIO (APÓS LOGIN)
  return (
+  <>
+  {/* O CONTEÚDO: Fica desfocado e bloqueado enquanto 'podeInteragir' for false */}
+  <BannerTermos aoAceitar={() => setPodeInteragir(true)} tempo={10} />
+    <div className={`transition-all duration-700 ${
+      !podeInteragir ? 'blur-lg pointer-events-none opacity-50' : 'opacity-100'
+    }`}></div>
+
     <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen pt-32"> {/* pt-32 resolve o problema de ficar muito para cima */}
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-gray-100">
         <header className="flex justify-between items-center mb-8 border-b pb-4">
@@ -196,5 +205,6 @@ export default function ProfessorPage() {
         </form>
       </div>
     </div>
+  </>
   );
 }
