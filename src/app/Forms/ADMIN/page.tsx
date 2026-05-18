@@ -106,7 +106,7 @@ const gerarPDF = async () => {
           Cadastro de Itens (ADM)
         </h2>
 
-        <Link href="Forms/ADMIN/Itens" className="bg-white p-8 rounded-xl shadow-md border-t-4 border-blue-500 hover:shadow-lg transition flex flex-col items-center">
+        <Link href="ADMIN/Itens" className="bg-white p-8 rounded-xl shadow-md border-t-4 border-blue-500 hover:shadow-lg transition flex flex-col items-center">
           <span className="text-4xl mb-4">📋</span> 
           <h2 className="text-xl font-bold text-gray-700">Gerenciar Itens</h2>
           <p className="text-gray-500 text-center mt-2">Edite ou remova os itens da lista.</p>
