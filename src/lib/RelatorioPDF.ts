@@ -4,6 +4,7 @@ import autoTable from 'jspdf-autotable';
 export class RelatorioPAEDE {
   private doc: jsPDF;
   private verdeIF = [21, 128, 61] as [number, number, number];
+  private ePrimeiraPagina = true; // Flag de controle de fluxo de páginas
 
   constructor() {
     this.doc = new jsPDF();
@@ -23,9 +24,12 @@ export class RelatorioPAEDE {
 
   // Método: Adiciona a página de um professor específico
   adicionarPaginaProfessor(relatorio: any) {
-    // Se não for a primeira página, adiciona uma nova
-    if (this.doc.getNumberOfPages() > 1 || this.doc.internal.pages.length > 2) {
-       this.doc.addPage();
+    // SEGUNDO PROFESSOR EM DIANTE: Cria uma nova página obrigatoriamente
+    if (!this.ePrimeiraPagina) {
+      this.doc.addPage();
+    } else {
+      // Se era a primeira página, agora não é mais para os próximos loops
+      this.ePrimeiraPagina = false;
     }
 
     this.desenharCabecalho();
@@ -44,17 +48,14 @@ export class RelatorioPAEDE {
 
     // Dados da Tabela
     const tableData = Object.keys(relatorio.respostas).map(itemId => {
-    const r = relatorio.respostas[itemId];
-    
-    // Tenta pegar r.descricao (se salvo no novo formato) 
-    // ou r.nome (se salvo no formato antigo)
-    const nomeAluno = r.descricao || r.nome || `Item ID: ${itemId}`;
+      const r = relatorio.respostas[itemId];
+      const nomeAluno = r.descricao || r.nome || `Item ID: ${itemId}`;
 
-    return [
+      return [
         nomeAluno,
         r.segue ? "SIM" : "NÃO",
         r.justificativa || "---"
-    ];
+      ];
     });
 
     autoTable(this.doc, {
@@ -62,7 +63,10 @@ export class RelatorioPAEDE {
       head: [['Item/Aluno', 'Segue Fluxo?', 'Justificativa']],
       body: tableData,
       headStyles: { fillColor: this.verdeIF },
-      columnStyles: { 1: { halign: 'center', fontStyle: 'bold' } },
+      columnStyles: { 
+        0: { cellWidth: 70 }, // Dá uma largura boa fixa pro nome do Aluno não esmagar a tabela
+        1: { halign: 'center', fontStyle: 'bold', cellWidth: 30 } 
+      },
       didParseCell: (data) => {
         if (data.section === 'body' && data.column.index === 1) {
           data.cell.styles.textColor = data.cell.raw === 'SIM' ? [22, 101, 52] : [153, 27, 27];
